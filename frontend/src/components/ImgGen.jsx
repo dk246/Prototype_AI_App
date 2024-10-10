@@ -1,7 +1,10 @@
 // ArtPreview.jsx
 import React, { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const ArtPreview = () => {
+  const location = useLocation();
+  const { capturedImage } = location.state || { capturedImage: null }; // Get the captured image from state
   const [selectedStyle, setSelectedStyle] = useState(null);
 
   return (
@@ -10,7 +13,15 @@ const ArtPreview = () => {
         {/* Art preview section */}
         <div className="flex-1 flex items-center justify-center bg-gray-400 rounded-lg p-4">
           <div className="w-[35rem] h-96 lg:h-[35rem] bg-gray-400 flex items-center justify-center text-gray-200">
-            Art Preview
+            {capturedImage ? (
+              <img
+                src={capturedImage}
+                alt="Captured"
+                className="w-full h-auto"
+              />
+            ) : (
+              <span>No image captured</span>
+            )}
           </div>
         </div>
 
@@ -38,6 +49,12 @@ const ArtPreview = () => {
             </button>
             <button className="w-full bg-blue-500 text-white py-3 rounded-lg shadow hover:bg-blue-600">
               Next
+            </button>
+            <button
+              onClick={() => (window.location.href = "/")}
+              className="w-full bg-yellow-500 text-white py-3 rounded-lg shadow hover:bg-yellow-600"
+            >
+              Back
             </button>
           </div>
         </div>

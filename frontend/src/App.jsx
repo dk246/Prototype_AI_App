@@ -1,9 +1,20 @@
+// App.jsx
 import React from "react";
-import ArtPreview from "./components/Preview";
-import AiAnimation from "./components/AiAnimation";
+
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import CameraCapture from "./components/Camera";
+import StorylinePage from "./components/StoryLine";
+import ArtPreview from "./components/ImgGen";
 
 const App = () => {
-  return <AiAnimation />;
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<CameraCapture />} />
+        <Route path="/ArtPreview" element={<ArtPreview />} />
+      </Routes>
+    </Router>
+  );
 };
 
 export default App;
