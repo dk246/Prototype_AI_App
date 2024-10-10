@@ -1,7 +1,10 @@
 import React from "react";
+import AiAnimation from "./components/AiAnimation";
+import ArtPreview from "./components/ArtPreview";
 
 const App = () => {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+  return 
+  <AiAnimation/>;
 };
 
 export default App;
