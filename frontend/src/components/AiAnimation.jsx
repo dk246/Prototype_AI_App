@@ -4,10 +4,19 @@ const AiAnimation = () => {
   const [selectedStyle, setSelectedStyle] = useState(null);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-blue-900 px-12">
-      <div className="w-full max-w-5xl p-8 bg-blue-800 bg-opacity-90 rounded-lg shadow-lg flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+    <div
+      className="min-h-screen flex items-center justify-center px-12"
+      style={{ backgroundColor: "#323050" }}
+    >
+      <div
+        className="w-full max-w-5xl p-8 bg-opacity-90 rounded-lg shadow-lg flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8"
+        style={{ backgroundColor: "#A7DDF2" }}
+      >
         {/* AI animation preview section */}
-        <div className="flex-1 flex items-center justify-center bg-blue-700 rounded-lg p-4">
+        <div
+          className="flex-1 flex items-center justify-center rounded-lg p-4"
+          style={{ backgroundColor: "#2D61A6" }}
+        >
           <div className="w-[35rem] h-96 lg:h-[35rem] bg-gray-400 flex items-center justify-center text-gray-200">
             AI Animation
           </div>

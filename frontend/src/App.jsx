@@ -3,7 +3,6 @@ import React from "react";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import CameraCapture from "./components/Camera";
-import StorylinePage from "./components/StoryLine";
 import ArtPreview from "./components/ImgGen";
 
 const App = () => {
