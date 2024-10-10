@@ -3,8 +3,7 @@ import AiAnimation from "./components/AiAnimation";
 import ArtPreview from "./components/ArtPreview";
 
 const App = () => {
-  return 
-  <AiAnimation/>;
+  return <AiAnimation />;
 };
 
 export default App;

@@ -1,23 +1,47 @@
-import React from 'react';
+import React, { useState } from "react";
 
 const AiAnimation = () => {
+  const [selectedStyle, setSelectedStyle] = useState(null);
+
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl font-bold mb-4">AI Animation</h1>
-      <div className="w-full max-w-md bg-gray-300 p-4 rounded-lg">
-        <div className="h-64 bg-gray-200 rounded-lg"></div>
-        <h2 className="text-lg font-semibold mt-4">Select Animation Styles</h2>
-        <div className="grid grid-cols-3 gap-4 mt-4">
-          <div className="bg-gray-400 h-20 rounded-lg"></div>
-          {/* ... more animation style thumbnails */}
+    <div className="min-h-screen flex items-center justify-center bg-blue-900 px-12">
+      <div className="w-full max-w-7.5xl p-8 bg-blue-800 bg-opacity-90 rounded-lg shadow-lg flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+        {/* AI animation preview section */}
+        <div className="flex-1 flex items-center justify-center bg-blue-700 rounded-lg p-4">
+          <div className="w-[60rem] h-96 lg:h-[33rem] bg-gray-400 flex items-center justify-center text-gray-200">
+            AI Animation
+          </div>
+        </div>
+
+        {/* Controls and animation style selection */}
+        <div className="flex-[2] flex flex-col justify-between">
+          <div className="text-gray-200 text-center mb-6">
+            Select Animation Style
+          </div>
+          <div className="grid grid-cols-3 gap-4 mb-8">
+            {[1, 2, 3, 4, 5, 6].map((style, idx) => (
+              <div
+                key={idx}
+                className={`w-24 h-24 bg-gray-400 cursor-pointer rounded-lg hover:bg-gray-500 ${
+                  selectedStyle === idx ? "border-4 border-green-500" : ""
+                }`}
+                onClick={() => setSelectedStyle(idx)}
+              />
+            ))}
+          </div>
+
+          <div className="flex items-center justify-center space-x-4">
+            <button className="w-40 h-12 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 flex items-center justify-center">
+              Generate
+            </button>
+            <button className="w-40 h-12 bg-purple-500 text-white rounded-lg shadow hover:bg-purple-600 flex items-center justify-center">
+              Go
+            </button>
+          </div>
         </div>
       </div>
-      <div className="flex mt-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2">Generate</button>
-        <button className="bg-green-500 text-white px-4 py-2 rounded-lg">Go</button>
-      </div>
     </div>
-  )
-}
+  );
+};
 
-export default AiAnimation
+export default AiAnimation;
