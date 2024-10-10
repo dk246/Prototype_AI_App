@@ -1,10 +1,8 @@
 import React from "react";
-import AiAnimation from "./components/AiAnimation";
-import ArtPreview from "./components/ArtPreview";
+import ArtPreview from "./components/Preview";
 
 const App = () => {
-  return 
-  <AiAnimation/>;
+  return <ArtPreview />;
 };
 
 export default App;
