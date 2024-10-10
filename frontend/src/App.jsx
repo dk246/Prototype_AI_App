@@ -1,6 +1,6 @@
 import React from "react";
+import ArtPreview from "./components/Preview";
 import AiAnimation from "./components/AiAnimation";
-import ArtPreview from "./components/ArtPreview";
 
 const App = () => {
   return <AiAnimation />;
