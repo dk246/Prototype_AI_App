@@ -1,11 +1,63 @@
-// ArtPreview.jsx
 import React, { useState } from "react";
+import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ArtPreview = () => {
   const location = useLocation();
   const { capturedImage } = location.state || { capturedImage: null }; // Get the captured image from state
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [generatedImage, setGeneratedImage] = useState(null);
+  const [generatingImage, setGeneratingImage] = useState(false);
+
+  // Function to generate AI image
+  const handleGenerateImage = async () => {
+    setGeneratingImage(true);
+
+    try {
+      // Convert the captured image to blob
+      const response = await fetch(capturedImage);
+      const blob = await response.blob();
+
+      const formData = new FormData();
+      formData.append("image_file", blob);
+
+      // Optionally, add selected style to the request if necessary
+      if (selectedStyle) {
+        formData.append("style_id", selectedStyle); // Adjust this according to your API spec
+      }
+
+      // Send request to Clipdrop API for AI image generation
+      const result = await axios.post(
+        "https://clipdrop-api.co/reimagine/v1/reimagine", // Adjust the endpoint if necessary
+        formData,
+        {
+          headers: {
+            "x-api-key":
+              "e019ba1e1d80d9d9a2c101b6fb33ac2fd9b30a49d1d679156960533fd43123cffcd38db6653b783fc8fc0eb136d971ca",
+          },
+          responseType: "arraybuffer", // Ensure binary data is returned
+        }
+      );
+
+      // Convert binary data to base64
+      const blobData = new Blob([result.data]);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const base64GeneratedImage = reader.result;
+        setGeneratedImage(base64GeneratedImage); // Set the generated AI image
+        toast.success("Image generated successfully!");
+      };
+      reader.readAsDataURL(blobData);
+    } catch (error) {
+      console.error("Error generating AI image:", error);
+      toast.error("Failed to generate image. Please try again.");
+    } finally {
+      setGeneratingImage(false);
+    }
+  };
 
   return (
     <div
@@ -22,7 +74,13 @@ const ArtPreview = () => {
           style={{ backgroundColor: "#2D61A6" }}
         >
           <div className="w-[35rem] h-96 lg:h-[35rem] bg-gray-400 flex items-center justify-center text-gray-200">
-            {capturedImage ? (
+            {generatedImage ? (
+              <img
+                src={generatedImage}
+                alt="Generated"
+                className="w-full h-auto"
+              />
+            ) : capturedImage ? (
               <img
                 src={capturedImage}
                 alt="Captured"
@@ -30,6 +88,11 @@ const ArtPreview = () => {
               />
             ) : (
               <span>No image captured</span>
+            )}
+            {generatingImage && (
+              <div className="absolute inset-0 flex items-center justify-center bg-opacity-50 bg-gray-700">
+                <ClipLoader size={50} color={"#ffffff"} />
+              </div>
             )}
           </div>
         </div>
@@ -53,8 +116,14 @@ const ArtPreview = () => {
 
           {/* Buttons */}
           <div className="flex space-x-4">
-            <button className="w-full bg-purple-500 text-white py-3 rounded-lg shadow hover:bg-purple-600">
-              Generate
+            <button
+              onClick={handleGenerateImage}
+              className={`w-full bg-purple-500 text-white py-3 rounded-lg shadow hover:bg-purple-600 ${
+                generatingImage ? "cursor-not-allowed opacity-50" : ""
+              }`}
+              disabled={generatingImage}
+            >
+              {generatingImage ? "Generating..." : "Generate"}
             </button>
             <button className="w-full bg-blue-500 text-white py-3 rounded-lg shadow hover:bg-blue-600">
               Next
@@ -68,6 +137,8 @@ const ArtPreview = () => {
           </div>
         </div>
       </div>
+      {/* Toast notifications */}
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar />
     </div>
   );
 };
