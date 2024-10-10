@@ -5,10 +5,10 @@ const AiAnimation = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-blue-900 px-12">
-      <div className="w-full max-w-7.5xl p-8 bg-blue-800 bg-opacity-90 rounded-lg shadow-lg flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+      <div className="w-full max-w-5xl p-8 bg-blue-800 bg-opacity-90 rounded-lg shadow-lg flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
         {/* AI animation preview section */}
         <div className="flex-1 flex items-center justify-center bg-blue-700 rounded-lg p-4">
-          <div className="w-[60rem] h-96 lg:h-[33rem] bg-gray-400 flex items-center justify-center text-gray-200">
+          <div className="w-[35rem] h-96 lg:h-[35rem] bg-gray-400 flex items-center justify-center text-gray-200">
             AI Animation
           </div>
         </div>
